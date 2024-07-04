@@ -1,6 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Confirmacao from "../pages/Confirmacao/index.js";
+import DetalhesUsuario from "../pages/DetalhesUsuarios/index.js";
 import Forgot from "../pages/Forgot/index.js";
 import Login from "../pages/Login/index.js";
 import { UsuarioLogadoTabs } from "../pages/UsuarioLogadoTabs/index.js";
@@ -35,6 +36,11 @@ export default function Routes() {
         name="UsuarioLogadoTabs" 
         component={UsuarioLogadoTabs} 
         options={{UsuarioLogadoTabs: false, headerShown: false}}
+        />
+      <Stack.Screen 
+        name="DetalhesUsuario" 
+        component={DetalhesUsuario} 
+        options={{DetalhesUsuario: false, headerShown: false}}
         />
     </Stack.Navigator>
   );

@@ -1,12 +1,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { FlatList, Image, Text, View } from 'react-native';
+import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import ImagemPadrao from '../../assets/ImagemPadrao.jpg';
 import { API_URL } from '../../services/LoginService';
 
 export default function Usuarios() {
   const [usuarios, setUsuarios] = useState([]);
-
+  const navigation = useNavigation();
   useEffect(() => {
     fetchUsuarios();
   }, []);
@@ -15,7 +16,7 @@ export default function Usuarios() {
     try {
       // Recupera o token do AsyncStorage
       const token = await AsyncStorage.getItem('@auth_token');
-        console.log('Token -> ' +token)
+      console.log('Token -> ' + token)
       const response = await fetch(`${API_URL}/usuario/listarTodosUsuarios/16`, {
         headers: {
           'Content-Type': 'application/json',
@@ -23,38 +24,75 @@ export default function Usuarios() {
           'Authorization': `Bearer ${token}`
         }
       });
-  
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-  
+
       const data = await response.json();
       setUsuarios(data);
     } catch (error) {
       console.error('Erro ao buscar usuários', error);
     }
   };
-  
+  const hanleClickCard = () => {
+    console.log('Card pressionado');
+    navigation.navigate('DetalhesUsuario');
+  }
 
   const UsuarioCard = ({ usuario }) => (
-    <View style={{ borderWidth: 1, margin: 10, padding: 10 }}>
-      {/* <Image  source={usuario.imagemPerfilBase64 ? `data:image/jpeg;base64,${usuario.imagemPerfilBase64}` : ImagemPadrao} style={{ width: 100, height: 100 }} /> */}
-      <Image  source={ImagemPadrao} style={{ width: 100, height: 100 }} />
-      <Text>Nome: {usuario.nome}</Text>
-      <Text>Email: {usuario.email}</Text>
-      <Text>Categoria: {usuario.categoria}</Text>
-      <Text>Modalidade: {usuario.modalidade}</Text>
+    <View style={styles.usuarioCard}>
+     <Image
+      source={
+        usuario.imagemPerfilBase64
+          ? { uri: `data:image/jpeg;base64,${usuario.imagemPerfilBase64}` }
+          : ImagemPadrao
+      }
+      style={styles.imagem}
+    />
+      <View style={styles.dadosCard}>
+        <Text>Nome: {usuario.nome}</Text>
+        {/* <Text>Email: {usuario.email}</Text> */}
+        <Text>Categoria: {usuario.categoria}</Text>
+        <Text>Modalidade: {usuario.modalidade}</Text>
+      </View>
     </View>
   );
 
   return (
     <View>
-      <Text>Usuarios</Text>
-      <FlatList
+      <TouchableOpacity onPress={hanleClickCard}>
+      <FlatList 
+        style={{ marginTop: 40 }}
         data={usuarios}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => <UsuarioCard usuario={item} />}
       />
+      </TouchableOpacity>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  usuarioCard: {
+    marginTop: 5,
+    backgroundColor: '#fff',
+    padding: 15,
+    flexDirection: 'row',
+    borderRadius: 10,
+    alignItems: 'center',
+    height: 120,
+    margin: 10,
+  },
+  dadosCard: {
+    marginLeft: 10,
+    marginTop: 15,
+  },
+
+  imagem: {
+    width: 90,
+    height: 90,
+    borderRadius: 50,
+  },
+
+});
