@@ -5,17 +5,13 @@ import { useNavigation } from '@react-navigation/native';
 import moment from 'moment';
 import React, { useState } from 'react';
 import {
-  Button,
-  FlatList,
-  Image,
-  Modal,
-  ScrollView,
-  StyleSheet,
-  Switch,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View
+    Image,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View
 } from 'react-native';
 import ExelIcon from '../../assets/excel.png';
 import PdfIcon from '../../assets/ficheiro-pdf.png';
@@ -77,7 +73,7 @@ export default function DetalhesUsuario({ route }) {
   const [dataNascimento, setDataNascimento] = useState(formulario ? moment(formulario.dataNascimento).toDate() : new Date());
 
   const handleFileChange = (event) => {
-    alert('Funcionalidade disponível apenas para Web');
+    // colocar file aqui
   };
 
   const handleCheckBoxImagemPerfil = () => {
@@ -142,13 +138,12 @@ export default function DetalhesUsuario({ route }) {
 };
 
 
-const handleMostrarDocumento = (documento, event) => {
-  alert('Funcionalidade disponível apenas para Web');
-};
-
+  const handleMostrarDocumento = (documento, event) => {
+    // logica do documento
+  };
 
   const handleExcluirDocumento = (documento, event) => {
-    alert('Funcionalidade disponível apenas para Web');
+    // exclusao do documento aqui
   };
 
   const handleClose = () => {
@@ -319,57 +314,7 @@ const handleMostrarDocumento = (documento, event) => {
           )}
         </View>
       )}
-      {value === 2 && (
-        <View >
-          <TouchableOpacity style={styles.botaoAdicionarNovo} onPress={() => setOpenFileEdit(true)}>
-            <Text style={styles.textoBotaoAdicionarNovo}> + </Text>
-          </TouchableOpacity>
-          <View style={styles.camposContainer}>
-
-            {formulario && formulario.documentoUsuario.length > 0 ? (
-              <FlatList
-                data={formulario.documentoUsuario}
-                keyExtractor={item => item.id.toString()}
-                renderItem={({ item }) => (
-                  <DocumentoItem
-                    item={item}
-                    onMostrarDocumento={handleMostrarDocumento}
-                    onExcluirDocumento={handleExcluirDocumento}
-                  />
-                )}
-              />
-            ) : (
-              <Text style={styles.mensagemNenhumDocumento}>Nenhum documento encontrado</Text>
-            )}
-
-          </View>
-          
-        </View>
-
-      )}
-      <Modal
-        visible={openFileEdit}
-        animationType="slide"
-        onRequestClose={() => setOpenFileEdit(false)}
-      >
-        <View style={styles.modalContainer}>
-          <Text style={styles.modalTitle}>Adicionar Documento</Text>
-          <TextInput
-            placeholder="Nome do Documento"
-            style={styles.input}
-            value={fileName}
-            onChangeText={setFileName}
-          />
-          <Switch
-            value={imagemPerfil}
-            onValueChange={handleCheckBoxImagemPerfil}
-          />
-          <Text>{imagemPerfil ? 'Sim' : 'Não'}</Text>
-          <Button title="Escolher Arquivo" onPress={handleFileChange} />
-          <Button title="Salvar" onPress={handleSaveDocumento} />
-          <Button title="Cancelar" onPress={() => setOpenFileEdit(false)} />
-        </View>
-      </Modal>
+  
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.botao} onPress={handleSave}>
           <Text style={styles.textoBotao}>Salvar</Text>

@@ -4,6 +4,7 @@ import Confirmacao from "../pages/Confirmacao/index.js";
 import DetalhesUsuario from "../pages/DetalhesUsuarios/index.js";
 import Forgot from "../pages/Forgot/index.js";
 import Login from "../pages/Login/index.js";
+import NovoUsuario from "../pages/NovoUsuario/index.js";
 import { UsuarioLogadoTabs } from "../pages/UsuarioLogadoTabs/index.js";
 import Welcome from "../pages/Welcome";
 
@@ -41,6 +42,11 @@ export default function Routes() {
         name="DetalhesUsuario" 
         component={DetalhesUsuario} 
         options={{DetalhesUsuario: false, headerShown: false}}
+        />
+      <Stack.Screen 
+        name="NovoUsuario" 
+        component={NovoUsuario} 
+        options={{NovoUsuario: false, headerShown: false}}
         />
     </Stack.Navigator>
   );

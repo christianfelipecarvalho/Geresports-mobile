@@ -49,7 +49,7 @@ export function UsuarioLogadoTabs() {
           <Ionicons name="location" color={color} size={size} />
         ),
       }} />
-      <Tab.Screen name="Agenda" component={Agenda}
+      <Tab.Screen name="Calendário" component={Agenda}
        options={{
         headerShown: false,
         tabBarIcon: ({ color, size }) => (
