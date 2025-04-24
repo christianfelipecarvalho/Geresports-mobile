@@ -1,6 +1,6 @@
 import axios from './BaseService';
 
-const API_URL = 'https://geresportes.azurewebsites.net';
+const API_URL = 'https://geresportes-backend.onrender.com';
 
 export const listarTodosLocais = () => {
   return axios.get(`${API_URL}/Local/RecuperarTodosLocais`);

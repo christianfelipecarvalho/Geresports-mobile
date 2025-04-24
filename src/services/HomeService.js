@@ -1,7 +1,7 @@
 // HomeService.js
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const API_URL = 'https://geresportes.azurewebsites.net';
+const API_URL = 'https://geresportes-backend.onrender.com';
 
 const getAuthToken = async () => {
   const token = await AsyncStorage.getItem('@auth_token');

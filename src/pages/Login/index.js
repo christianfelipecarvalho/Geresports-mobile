@@ -15,7 +15,7 @@ export default function Login() {
     setLoading(true); // Inicia o indicador de carregamento
     try {
       const response = await fetch(`${API_URL}/Login/Login`, {
-        method: 'PUT',
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
